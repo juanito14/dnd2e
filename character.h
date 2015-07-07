@@ -1,9 +1,9 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
+#include <stdexcept>
 #include <QObject>
 #include <QVector>
-#include <stdexcept>
 #include "characterclass.h"
 
 enum Abilities {Strength=0, Dexterity, Constitution, Intelligence, Wisdom, Charisma, MaxAbility};
@@ -33,7 +33,7 @@ private:
 	const int _defaultAbilityValue;
 	int _availabelAbilityValues;
 	void checkAbilityType(const Abilities abilityType) const;
-	void checkStrengthAbilityType(const StrengthAbilities strengthAbilityType) const;
+    void checkStrengthAbilityType(const StrengthAbilities strengthAbilityType) const;
 	CharacterClass _class;
 	int _expirience;
 	int _level;
