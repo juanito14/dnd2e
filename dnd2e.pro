@@ -15,10 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     character.cpp \
-    characterclass.cpp
+    characterclass.cpp \
+    race.cpp
 
 HEADERS  += mainwindow.h \
     character.h \
-    characterclass.h
+    characterclass.h \
+    race.h
 
 FORMS    += mainwindow.ui

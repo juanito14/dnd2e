@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-enum Classes {Fighter=0, Wizard, MaxClass};
+enum Classes {Fighter=0, Rogue, Wizard, Cleric, Druid, MaxClass};
 
 class CharacterClass : public QObject
 {

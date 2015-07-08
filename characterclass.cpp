@@ -2,7 +2,7 @@
 
 CharacterClass::CharacterClass(QObject *parent) : QObject(parent)
 {
-
+    setClass(Fighter);
 }
 
 CharacterClass::~CharacterClass()
