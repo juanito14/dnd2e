@@ -2,7 +2,7 @@
 #include <array>
 
 
-Character::Character(QObject *parent) :
+Character::Character(const Classes cl, const Races race, QObject *parent) :
     QObject(parent),
     _defaultAbilityValue(8),
     _availabelAbilityValues(10),
@@ -16,6 +16,25 @@ Character::Character(QObject *parent) :
     _AbilitiesVector[Intelligence] = _defaultAbilityValue;
     _AbilitiesVector[Wisdom] = _defaultAbilityValue;
     _AbilitiesVector[Charisma] = _defaultAbilityValue;
+
+    setClass(cl);
+    setRace(race);
+    if(race == Dwarf){
+        increaseAbility(1, Constitution);
+        increaseAbility(-1, Charisma);
+    }
+    if(race == Elf){
+        increaseAbility(1, Dexterity);
+        increaseAbility(-1, Constitution);
+    }
+    if(race == Gnome){
+        increaseAbility(1, Intelligence);
+        increaseAbility(-1, Wisdom);
+    }
+    if(race == Halfling){
+        increaseAbility(1, Dexterity);
+        increaseAbility(-1, Strength);
+    }
 }
 
 Character::~Character()
@@ -223,6 +242,70 @@ int Character::getCharismaAbility(const CharismaAblities charismaAbilityType) co
     v[ChaReactionAdjustment] = {-7,-6,-5,-4,-3,-2,-1,0,0,0,0,0,1,2,3,5,6,7,8,9,10,11,12,13,14};
 
     return v[charismaAbilityType][ability(Charisma)];
+}
+
+int Character::getPoisonSavingThrow()
+{
+    if(_race.race() == Dwarf){
+        std::array<int, 25> v;
+        v = {0,0,0,1,1,1,2,2,2,2,3,3,3,4,4,4,4,5,5,5,5,5,5,5,5};
+        return v[ability(Constitution)];
+    }
+    return 0;
+}
+
+int Character::getChanceToUseMagicItem(const MagicItems item)
+{
+    if(_race.race() == Dwarf){
+        return 80;
+    }
+    return 100;
+}
+
+int Character::getAttackLevel(const Monsters monster)
+{
+    //TODO: get attack level
+    int attackLevel = 0;
+
+    if(_race.race() == Dwarf && (monster == Ogre || monster == OgreMag || monster == Troll || monster == Giant || monster == Titan)){
+        return attackLevel + 1;
+    }
+}
+
+int Character::searchDoor()
+{
+    if(_race.race() == Dwarf){
+        return 85;
+    }
+    return 0;
+}
+
+int Character::searchTrap()
+{
+    if(_race.race() == Dwarf){
+        return 50;
+    }
+    return 0;
+}
+
+int Character::getMagicSavingThrow()
+{
+    if(_race.race() == Dwarf){
+        std::array<int, 25> v;
+        v = {0,0,0,1,1,1,2,2,2,2,3,3,3,4,4,4,4,5,5,5,5,5,5,5,5};
+        return v[ability(Constitution)];
+    }
+    return 0;
+}
+
+void Character::setClass(const Classes cl)
+{
+    _class.setClass(cl);
+}
+
+void Character::setRace(const Races race)
+{
+    _race.setRace(race);
 }
 
 

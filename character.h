@@ -16,12 +16,14 @@ enum WisdomAblities {MagicalDefenseAdjustment = 0, BonusSpells, ChanceOfSpellFai
 enum CharismaAblities {LoyaltyBase = 0, ChaReactionAdjustment, MaxCharismaAbility};
 
 enum Spells {MaxSpell};
+enum MagicItems {MaxMagicItem};
+enum Monsters {Ogre = 0, OgreMag, Troll, Giant, Titan, MaxMonster};
 
 class Character : public QObject
 {
 	Q_OBJECT
 public:
-	explicit Character(QObject *parent = 0);
+    explicit Character(const Classes cl, const Races race, QObject *parent = 0);
 	~Character();
 
 	int ability(const Abilities abilityType) const;
@@ -36,6 +38,14 @@ public:
     int getIntelligenceAbility(const IntelligenceAblities intelligenceAbilityType) const;
     int getWisdomAbility(const WisdomAblities wisdomAbilityType) const;
     int getCharismaAbility(const CharismaAblities charismaAbilityType) const;
+
+    int getMagicSavingThrow();
+    int getPoisonSavingThrow();
+    int getChanceToUseMagicItem(const MagicItems item);
+    int getAttackLevel(const Monsters monster);
+
+    int searchDoor();
+    int searchTrap();
 
 signals:
 
@@ -53,6 +63,8 @@ private:
     void checkWisdomAbilityType(const WisdomAblities wisdomAbilityType) const;
     void checkCharismaAbilityType(const CharismaAblities charismaAbilityType) const;
     bool isSpellImmunity(const Spells spell);
+    void setClass(const Classes cl);
+    void setRace(const Races race);
 	CharacterClass _class;
     Race _race;
 	int _expirience;
